@@ -28,19 +28,7 @@ public class PageController {
 		
 		return mav;
 	}
-	
-	/*@RequestMapping(value="/", method={RequestMethod.POST})
-	ModelAndView home(ModelAndView mav, @ModelAttribute(value="searchedInterest") Interest interest){
 		
-		mav.setViewName("app.homepage");
-		StatusUpdate statusUpdate = statusUpdateService.getLatest();	
-		mav.getModel().put("statusUpdate", statusUpdate);
-		mav.getModel().put("foundInterest", interest);
-		
-		return mav;
-	}*/
-	
-	
 	@RequestMapping(value="/about")
 	String about(){
 		return "app.about";

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Interests")
-public class Interest implements Comparable<Interest>{//implementam Comparable pentru a putea compara Interests(dorim sa nu se repete)
+public class Interest implements Comparable<Interest>{
 	
 	@Id
 	@Column(name="id")
@@ -23,7 +23,7 @@ public class Interest implements Comparable<Interest>{//implementam Comparable p
 	@Column(name="interest_name", unique=true, length=50)
 	private String name;
 	
-	/**Bi-directional: Necesar pt a avea acces si dinspre Interests -> Profile */ 
+	/**Bi-directional*/ 
 	@ManyToMany(mappedBy="interests", fetch=FetchType.LAZY)
 	private Set<Profile> profiles;
 
@@ -63,10 +63,9 @@ public class Interest implements Comparable<Interest>{//implementam Comparable p
 		this.profiles = profiles;
 	}
 
-	
-
+	/** Compare Interests after name*/
 	@Override
-	public int compareTo(Interest other) { //Comparam Interests dupa nume
+	public int compareTo(Interest other) { 
 		return this.name.compareTo(other.name);
 	}
 
@@ -94,11 +93,5 @@ public class Interest implements Comparable<Interest>{//implementam Comparable p
 			return false;
 		return true;
 	}
-
-	
-	
-	
-	
-	
 
 }

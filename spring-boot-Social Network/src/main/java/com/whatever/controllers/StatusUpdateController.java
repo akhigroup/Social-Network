@@ -23,8 +23,7 @@ public class StatusUpdateController {
 	private StatusUpdateService statusUpdateService;
 	
 	@RequestMapping(value="/viewstatus", method={RequestMethod.GET})
-	ModelAndView viewStatus(ModelAndView mav, @RequestParam(name="p", defaultValue="1") int pageNumber){//parametrii din URL de dupa "?"
-		// ex: http://localhost:8080/viewstatus?p=4
+	ModelAndView viewStatus(ModelAndView mav, @RequestParam(name="p", defaultValue="1") int pageNumber){
 		
 		Page<StatusUpdate> page = statusUpdateService.getPage(pageNumber);
 		mav.getModel().put("page", page);
@@ -44,17 +43,16 @@ public class StatusUpdateController {
 		return mav;
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')") /** Only users with ROLE_ADMIN can acces this method*/
+	@PreAuthorize("hasRole('ADMIN')") /** Only users with ROLE_ADMIN can access this method*/
 	@RequestMapping(value="/addstatus", method={RequestMethod.POST})
-	ModelAndView addStatus(ModelAndView mav, @ModelAttribute(value = "statusUpdate") @Valid StatusUpdate statusUpdate, BindingResult result){// @Valid verifica daca statusUpdate
-		// a trecut de validarile necesare cerute in Model si da rezultatul in "BindingResult result"
+	ModelAndView addStatus(ModelAndView mav, @ModelAttribute(value = "statusUpdate") @Valid StatusUpdate statusUpdate, BindingResult result){
 		
 		mav.setViewName("app.addStatus");
 		
-		if (!result.hasErrors()){ //Daca nu exista errori salvam in baza de date si golim contentul din Form
+		if (!result.hasErrors()){
 			statusUpdateService.save(statusUpdate);
 			mav.getModel().put("statusUpdate", new StatusUpdate());
-			mav.setViewName("redirect:/viewstatus"); //Redirectionam catre pagina "/viewstatus"
+			mav.setViewName("redirect:/viewstatus");
 		}
 				
 		StatusUpdate latestStatusUpdate = statusUpdateService.getLatest();
@@ -64,7 +62,7 @@ public class StatusUpdateController {
 	}
 	
 	@RequestMapping(value="/deletestatus", method=RequestMethod.GET)
-	ModelAndView deleteStatus(ModelAndView mav, @RequestParam(name="id") Long id){//@RequestParam /deletestatus?id= 
+	ModelAndView deleteStatus(ModelAndView mav, @RequestParam(name="id") Long id){
 		
 		statusUpdateService.delete(id);
 		mav.setViewName("redirect:/viewstatus");

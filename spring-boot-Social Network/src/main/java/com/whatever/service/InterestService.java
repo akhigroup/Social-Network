@@ -1,5 +1,7 @@
 package com.whatever.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,9 @@ public class InterestService {
 		}
 		
 		return interest;
+	}
+	
+	public List<String> findByNameStartingWith(String interest){
+		return interestDao.findByNameStartingWith(interest);
 	}
 }

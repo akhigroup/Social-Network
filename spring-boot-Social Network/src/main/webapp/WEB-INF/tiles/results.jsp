@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<c:if test="${page.totalPages > 1}"> <!-- Afisam numerotarea paginilor doar daca sunt mai mult de 2 -->
+<c:if test="${page.totalPages > 1}">
 
 <div class="pagination">
 
-	<c:forEach var="pageNumberDemo" begin="1" end="${page.totalPages}"><!-- Din clasa Page apelam metoda getTotalPages() -->
+	<c:forEach var="pageNumberDemo" begin="1" end="${page.totalPages}">
 		<c:choose>
 			<c:when test="${pageNumberDemo - 1 != page.number}">
 				<a href="${url}?interest=${interest}&p=${pageNumberDemo}">
@@ -23,13 +24,18 @@
 </div>
 </c:if>
 <div>
-	<p class="profile-results-name">Result search for: "<c:out value="${interest}"></c:out>"</p>
+	<c:choose>
+		<c:when test="${not empty interests}">
+			<p class="profile-results-name">Result search for: "<c:out value="${interest}"></c:out>"</p>
+			<c:if test="${fn:length(interests) gt 1 || interests[0] != interest}">
+				<p class="profile-results-interest-list">found these related <c:out value="${interests}"/></p>
+			</c:if>
+		</c:when>
+		<c:otherwise>
+			<p class="profile-results-name">No results found</p>
+		</c:otherwise>
+	</c:choose>
 </div>
-
-
-<c:if test="${empty page}">
-	<strong>No results were found</strong>
-</c:if>
 
 <table class="table">
 	<thead>

@@ -84,7 +84,7 @@ public class ProfileController {
 		
 	public SiteUser getUser(){
 			
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication(); //luam din Context instanta curenta
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String userName = auth.getName();
 		return userService.get(userName);	
 	}
@@ -99,7 +99,7 @@ public class ProfileController {
 		
 		Profile profile = profileService.getUserProfile(user);
 		
-		//In cazul in care este un nou user care nu si-a creeat un profil, il cream noi
+		/** If there is a new user without a profile, we will create by default*/
 		if (profile == null){
 			profile = new Profile();
 			profile.setUser(user);
@@ -107,7 +107,8 @@ public class ProfileController {
 		}
 		
 		Profile webProfile = new Profile();
-		webProfile.safeCopyFrom(profile); // Punem in .jsp doar varianta "safe", care are copiate doar elementele care pot fi afisate in .jsp, si nu si cele confidentiale
+		/** We use a 'safe' form to send to data to the view*/
+		webProfile.safeCopyFrom(profile);
 		
 		mav.getModel().put("userId", user.getId());
 		mav.getModel().put("profile", webProfile);
@@ -120,17 +121,17 @@ public class ProfileController {
 	public ModelAndView showProfile(){
 		SiteUser user = getUser();
 		ModelAndView mav = showProfile(user);
-		mav.getModel().put("ownProfile", true); //setam ownProfile ca true, adica userul se uita la profilul sau
+		mav.getModel().put("ownProfile", true);
 		return mav;
 	}
 	
-	@RequestMapping(value="/profile/{id}") //cautam profilul dupa id-ul userului (care este primary key-ul din baza de date)
+	@RequestMapping(value="/profile/{id}")
 	public ModelAndView showProfile(@PathVariable("id") Long id){
 		
 		SiteUser user = userService.get(id);
 		
 		ModelAndView mav = showProfile(user);
-		mav.getModel().put("ownProfile", false); //setam ownProfile ca false, adica userul Nu se uita la profilul sau
+		mav.getModel().put("ownProfile", false);
 		
 		return mav;
 	}
@@ -169,9 +170,8 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(value="/upload-profile-photo", method={RequestMethod.POST})
-	@ResponseBody //Inseamna ca returnam date in format JSON (tip JSON-Java Script Object Notation) si nu un ModelAndView pentru ViewResolver
-	//public PhotoUploadStatus handlePhotoUploads(ModelAndView mav, @RequestParam("file") MultipartFile file)- varianta care nu returneaza si mesajul
-	public ResponseEntity<PhotoUploadStatus> handlePhotoUploads(@RequestParam("file") MultipartFile file){//MultipartFile este o clasa Spring
+	@ResponseBody
+	public ResponseEntity<PhotoUploadStatus> handlePhotoUploads(@RequestParam("file") MultipartFile file){
 		
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
@@ -182,10 +182,10 @@ public class ProfileController {
 		
 		try {
 			FileInfo photoInfo = fileService.saveImageFile(file, photoUploadDirectory, "Photos", "photo" + user.getId(), profilePhotoWidth, profilePhotoHeight);
-			profile.setPhotoDetailes(photoInfo);//setam datele legate de imagine in "Profile"
-			profileService.save(profile);//salvam profilul modificat
+			profile.setPhotoDetailes(photoInfo);
+			profileService.save(profile);
 			
-			if (oldPhotoPath != null) //inainte sa schimbam poza de profil, o stergem pe cea veche
+			if (oldPhotoPath != null)
 				Files.delete(oldPhotoPath);
 				
 		} catch (InvalidFileException e) {
@@ -200,18 +200,18 @@ public class ProfileController {
 			status.setMessage(photoStatusTooSmall);
 			e.printStackTrace();
 		}	
-		//return status; varianta care nu returneaza si mesajul Http
-		return new ResponseEntity<PhotoUploadStatus>(status, HttpStatus.OK); // Optional putem returna si Http status: ok, forbidden, etc....
+		
+		return new ResponseEntity<PhotoUploadStatus>(status, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/profilephoto/{id}", method={RequestMethod.GET})
 	@ResponseBody
-	public ResponseEntity<InputStreamResource> servePhoto(@PathVariable Long id) throws IOException{ //returneaza poza din profil, daca nu este setata va returna poza default
+	public ResponseEntity<InputStreamResource> servePhoto(@PathVariable Long id) throws IOException{
 		
 		SiteUser user = userService.get(id);
 		Profile profile = profileService.getUserProfile(user);
 		
-		Path photoPath = Paths.get(photoUploadDirectory, "Default", "Profile.jpg"); //poza default la oricine nu a setat alta poza de profil
+		Path photoPath = Paths.get(photoUploadDirectory, "Default", "Profile.jpg");
 		
 		if (profile != null && profile.getPhoto(photoUploadDirectory) != null)
 			photoPath = profile.getPhoto(photoUploadDirectory);
@@ -223,7 +223,7 @@ public class ProfileController {
 				.body(new InputStreamResource(Files.newInputStream(photoPath, StandardOpenOption.READ)));
 	}
 	
-	//Adaugam daca vrem sa putem uploada dimensiuni mai mari ale fisierelor
+	/** Used if to change the default maxSize limit*/
 	@Bean
 	MultipartConfigElement multipartConfigElement() {
 	    MultipartConfigFactory factory = new MultipartConfigFactory();
@@ -238,7 +238,8 @@ public class ProfileController {
 		
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
-		String cleanedInterestName = htmlPolicy.sanitize(interestName);//sanatizam Stringul interestName pt. a nu avea some java script hack scris de user
+		/** Sanitize the String before we save it in our DB (avoid SQL injection)*/
+		String cleanedInterestName = htmlPolicy.sanitize(interestName);
 		
 		Interest interest = interestService.createIfNotExists(cleanedInterestName);
 		profile.addInterest(interest);
@@ -260,6 +261,5 @@ public class ProfileController {
 		
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
-	
 	
 }

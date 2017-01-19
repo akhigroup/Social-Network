@@ -35,7 +35,6 @@ import com.whatever.service.UserService;
 @SpringApplicationConfiguration(App.class)
 @WebAppConfiguration
 @Transactional
-//vezi documentatie Spring MockMvc
 public class ProfileControllerRestTest {
 	
 	@Autowired
@@ -58,7 +57,7 @@ public class ProfileControllerRestTest {
 	}
 	
 	@Test
-	@WithMockUser(username = "q@q.com") //mock a real user
+	@WithMockUser(username = "q@q.com") /** We mock a real user*/
 	public void testSaveAndDeleteInterest() throws Exception{
 		
 		String interestText = "some interest_here";
@@ -80,7 +79,6 @@ public class ProfileControllerRestTest {
 		
 		assertTrue("Interest should exists in Profile", profile.getInterests().contains(new Interest(interestText))); //!!!!
 		
-		//Stergem un interest
 		mockMvc.perform(post("/delete-interest").param("name", interestText)).andExpect(status().isOk());
 		
 		profile = profileService.getUserProfile(user);

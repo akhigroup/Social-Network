@@ -21,7 +21,7 @@ public class ProfileService {
 	@Autowired
 	ProfileDao profileDao;
 	/**Comment for JUnit Test */
-	@PreAuthorize("isAuthenticated()") //Folosim optional pt cresterea securitatii, metoda se va executa doar daca userul este autentificat
+	@PreAuthorize("isAuthenticated()")
 	public void save(Profile profile){
 		
 		profileDao.save(profile);
@@ -37,7 +37,7 @@ public class ProfileService {
 		
 		PageRequest request = new PageRequest(pageNumber - 1, PAGESIZE, Sort.Direction.ASC, "user");
 		
-		Page<Profile> profiles = profileDao.findByInterestsNameLike(interest, request);
+		Page<Profile> profiles = profileDao.findByInterestsNameStartingWith(interest, request);
 		
 		Page<SearchResultDto> searchResultDtos = profiles.map(SearchResultDto::new);
 		

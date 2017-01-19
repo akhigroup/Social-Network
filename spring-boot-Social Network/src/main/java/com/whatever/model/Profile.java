@@ -14,13 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.owasp.html.PolicyFactory;
-import org.springframework.security.core.userdetails.User;
 
 @Entity
 @Table(name="profile")
