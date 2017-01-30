@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.ModelAndView;
 
+/** Global Exception Controller*/
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -27,9 +29,8 @@ public class GlobalExceptionHandler {
 		return "Error occurred uploading file";
 	}
 	
-	
 	@ExceptionHandler(value=Exception.class)
-	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e){ //nu accepta ca parametrii ModelAndView si atunci trebuie sa creem noi in interiorul metodei
+	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e){
 		ModelAndView mav = new ModelAndView();
 		
 		mav.getModel().put("message", exceptionMessage);
@@ -40,7 +41,7 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(value=DataIntegrityViolationException.class)
-	public ModelAndView duplicateUserHandler(HttpServletRequest req, Exception e){ //nu accepta ca parametrii ModelAndView si atunci trebuie sa creem noi in interiorul metodei
+	public ModelAndView duplicateUserHandler(HttpServletRequest req, Exception e){
 		ModelAndView mav = new ModelAndView();
 		
 		mav.getModel().put("message", duplicateUserMessage);

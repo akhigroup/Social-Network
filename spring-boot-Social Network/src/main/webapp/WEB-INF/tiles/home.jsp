@@ -9,15 +9,13 @@
 <div class="row">
 	<!-- in clasa "row" de la StrapBoot exista 12 coloane -->
 	<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-		<div class="homepage-status">${statusUpdate.text}</div> <!-- Folosim expression language si apelam metoda getText() pentru statusUpdate -->
-		<!-- clasa "homepage-status" am declarat-o in main.css-->
+		<div class="homepage-status">${statusUpdate.text}</div>
 	</div>
 </div>
 
 <div class="status-row">
 	<div class="col-md-8 col-md-offset-2">
-		<%-- <form method="post" modelAttribute="searchedInterest"> --%>
-		<form method="get" action="${search}"> <!-- cand apasam pe search vom fi redirectati spre /search page pe care il avem mapat -->
+		<form method="get" action="${search}">
 			<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%><!-- if method is : POST/PUT/DELETE we need csrf -->
 			<div class="input-group input-group-lg">
 				<input type="text" class="form-control" name="interest" placeHolder="Search on Interests"/>

@@ -48,8 +48,8 @@
 			<tr>
 				<td>
 					<div class="profile-results">
-						<c:url var="profilePhoto" value="/profilephoto/${searchedProfile.userId}" /> <!-- Accesam url-ul mapat: /profilephoto/{id}  pt a primii poza-->
-						<c:url var="profileLink" value="/profile/${searchedProfile.userId}" /> <!-- url-ul profilului -->
+						<c:url var="profilePhoto" value="/profilephoto/${searchedProfile.userId}" />
+						<c:url var="profileLink" value="/profile/${searchedProfile.userId}" />
 						<a href="${profileLink}">
 							<img src="${profilePhoto}" />
 						</a>

@@ -14,6 +14,8 @@ import com.whatever.model.Dto.SearchResultDto;
 import com.whatever.service.InterestService;
 import com.whatever.service.ProfileService;
 
+/** A search interest controller*/
+
 @Controller
 public class SearchController {
 	

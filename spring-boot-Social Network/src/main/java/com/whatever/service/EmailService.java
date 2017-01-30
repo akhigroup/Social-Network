@@ -2,6 +2,7 @@ package com.whatever.service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -19,8 +20,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 @Service
 public class EmailService {
 
+	/** We use velocity to create the page registration confirmation sent to new user*/
 	@Autowired
-	VelocityEngine velocityEngine; //pentru pagina HTML pe care o trimitem la user email, creeata utilizand velocity (.vm)
+	VelocityEngine velocityEngine;
 	
 	@Autowired
 	private JavaMailSender mailSender;	
@@ -37,15 +39,15 @@ public class EmailService {
 			mailSender.send(preparator);
 	}
 
-	@Async //In cazul in care conexiunea cu serverul de email dureaza mai mult, nu asteptam dupa acesta ci continuam
+	@Async /** We don't wait for server response*/
 	public void sendVerificationEmail(final String emailAddress, String token){
 		
 		/*final StringBuilder sb = new StringBuilder();
 		sb.append("<HTML>");
-		sb.append("<p>Hello there, this is <strong>HTML, verify tou EMAIL</strong></p>");
+		sb.append("<p>Hello there, this is <strong>HTML, verify your EMAIL</strong></p>");
 		sb.append("</HTML>");*/
 		
-		HashMap<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("token", token);
 		model.put("url", url);
 		

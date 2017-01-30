@@ -37,15 +37,14 @@ public class FileServiceTest {
 	@Test
 	public void testGetExtension() throws Exception{
 		
-		//Folosim Reflection pentru a putea apela o metoda privata
-		Method method = FileService.class.getDeclaredMethod("getFileExtensions", String.class);//numele metodei pe care o "copiem" este "getFileExtension
+		/** We use reflexion at method level*/
+		Method method = FileService.class.getDeclaredMethod("getFileExtensions", String.class);
 		method.setAccessible(true);
 		
 		assertEquals("should be png", "png", (String)method.invoke(fileService, "test.png"));
 		assertEquals("should be jpg", "jpg", (String)method.invoke(fileService, "w.jpg"));
 		assertEquals("should be jpeg", "jpeg", (String)method.invoke(fileService, "test.jpeg"));
 		assertEquals("should be png", null, (String)method.invoke(fileService, "test"));
-		
 	}
 	
 	@Test
@@ -70,7 +69,7 @@ public class FileServiceTest {
 		Method method = FileService.class.getDeclaredMethod("makeSubdirectory", String.class, String.class);
 		method.setAccessible(true);
 		
-		for (int i=0; i<10000; i++){
+		for (int i=0; i < 10000; i++){
 		
 			File created = (File)method.invoke(fileService, photoUploadDirectory, "Photos");
 			

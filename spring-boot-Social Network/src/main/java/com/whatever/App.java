@@ -18,24 +18,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
-/*
-@EnableAutoConfiguration //Incearca sa utilizeze obiectele-bean-urile create
-@ComponentScan //Cauta in alte fisiere clase care au adnotarea @Controller
 
-Se pot inlocuii cu @SpringBootApplication
-*/
 
-@EnableAsync //metodele adnotate cu @Async pot rula independent de celelalte (nu asteapta "return")
+@EnableAsync /** Enable @Async annotation on method level*/
 @SpringBootApplication
-@EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true) //Optional
-//Se foloseste ca adnotatie la orice metoda vrem sa nu se execute decat daca de ex userul este autentificat
+@EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true) /** Enable-Disable method execution*/
 public class App extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
 	}
 
-	// Pentru a putea folosii .war in Tomcat
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return super.configure(builder);
@@ -60,9 +53,9 @@ public class App extends SpringBootServletInitializer{
 	public PasswordEncoder getEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-	
+	/** For error page*/
 	@Bean
-	EmbeddedServletContainerCustomizer errorHamdler(){ //Pentru pagina de erroare 403
+	EmbeddedServletContainerCustomizer errorHamdler(){
 		return new EmbeddedServletContainerCustomizer(){
 
 			@Override
@@ -74,8 +67,9 @@ public class App extends SpringBootServletInitializer{
 		
 	}
 	
-	@Bean //facem un bean pt a-l putea @Autowired
-	PolicyFactory getUserHtmlPolicy(){ //folosim un dependency: OWASP-JAVA-HTML-SANITIZER
+	/** Used to sanitize html*/
+	@Bean
+	PolicyFactory getUserHtmlPolicy(){
 		
 		return new HtmlPolicyBuilder()
 					.allowCommonBlockElements()

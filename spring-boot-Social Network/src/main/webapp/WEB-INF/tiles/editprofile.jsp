@@ -19,11 +19,10 @@
 				<form:form modelAttribute="profile"> 
 				
 					<div class="errors">
-						<form:errors path="about"/> <!-- corespunde cu adnotarea @Size si message a variabilei "about" din clasa Profile -->
-					</div> <!-- daca punem acest div in afara form-ului trebuie mentionat in path si  modelAttribute, respectiv path="profile.about"-->
+						<form:errors path="about"/>
+					</div>
 						
 					<div class="form-group">
-					<!-- in path, "text" invoca metoda setAbout (din clasa Profile)  -->
 						<form:textarea path="about" name="text" rows="10" cols="50"></form:textarea>
 					</div>
 

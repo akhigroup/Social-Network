@@ -9,17 +9,6 @@
 		<p class=message>
 			<c:out value="${message}"/>
 		</p>
-		
-		<!--  
-		Failed URL:	<c:out value="${url}"/>
-		
-		Exception message: <c:out value="${exception.message}" />
-		
-		<c:forEach var="line" items="${exception.stackTrace}">
-			<c:out value="${line}"/>
-		</c:forEach> 
-		
-		-->
-		
+				
 	</div>
 </div>

@@ -1,7 +1,5 @@
 package com.whatever.validation;
 
-// Asa trebuie facut, don't ask why, see Hibernate documentation custom Annotation
-
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 

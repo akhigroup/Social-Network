@@ -15,16 +15,14 @@
 				<div class="panel-title">Add a Status Update</div>
 			</div>
 			<div class="panel-body">
-<!-- folosim prefixul "form" declarat mai sus pentru spring-->
 
-				<form:form modelAttribute="statusUpdate"> <!-- In loc de commandName putem pune modelAttribute, este identic  -->
+				<form:form modelAttribute="statusUpdate">
 				
 					<div class="errors">
-						<form:errors path="text"/> <!-- afiseaza errorile de la validare -->
+						<form:errors path="text"/>
 					</div>
 				
 					<div class="form-group">
-					<!-- in path, "text" se refera(invoca) la metoda setText (din clasa StatusUpdate)  -->
 						<form:textarea path="text" name="text" rows="10" cols="50"></form:textarea>
 					</div>
 
@@ -35,16 +33,13 @@
 		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="panel-title">Status update added on <fmt:formatDate pattern="EEEE d MMMM Y 'at' H:mm:s" value="${latestStatusUpdate.added}"/></div> <!-- .added apeleaza de fapt getAdded() -->
+				<div class="panel-title">Status update added on <fmt:formatDate pattern="EEEE d MMMM Y 'at' H:mm:s" value="${latestStatusUpdate.added}"/></div>
 			</div>
 			<div class="panel-body">
 
-				<%-- <c:out value="${latestStatusUpdate.text}"/> --%> <!-- .text apeleaza getText() din StatusUpdate class -->
-				<!-- Pentru a nu mai vedea de ex: <bold> text </bold> afisam exact ce vedem -->
 				${latestStatusUpdate.text}
 			</div>
 		</div>
-		
 		
 	</div>
 </div>

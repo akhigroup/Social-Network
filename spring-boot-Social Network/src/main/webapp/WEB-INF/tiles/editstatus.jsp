@@ -15,19 +15,17 @@
 				<div class="panel-title">Edit Status</div>
 			</div>
 			<div class="panel-body">
-<!-- folosim prefixul "form" declarat mai sus pentru spring-->
 
-				<form:form modelAttribute="statusUpdateXXX"> <!-- In loc de commandName putem pune modelAttribute, este identic  -->
+				<form:form modelAttribute="statusUpdateXXX">
 				
-				<form:input type="hidden" path="id"/><!-- Adaugam id-ul si data, altfel transmitem doar "text" mai departe-->
+				<form:input type="hidden" path="id"/>
 				<form:input type="hidden" path="added"/>
 				
 					<div class="errors">
-						<form:errors path="text"/> <!-- afiseaza errorile de la validare -->
+						<form:errors path="text"/>
 					</div>
 				
 					<div class="form-group">
-					<!-- in path, "text" se refera(invoca) la metoda setText (din clasa StatusUpdate)  -->
 						<form:textarea path="text" name="text" rows="10" cols="50"></form:textarea>
 					</div>
 
@@ -35,7 +33,6 @@
 				</form:form>
 			</div>
 		</div>
-
 	</div>
 </div>
 <!-- Java script open source pentru text editor, gasit pe net -->

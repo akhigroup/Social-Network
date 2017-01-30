@@ -36,7 +36,6 @@ public class ProfileService {
 	public Page<SearchResultDto> findProfilesByInterest(String interest, int pageNumber){
 		
 		PageRequest request = new PageRequest(pageNumber - 1, PAGESIZE, Sort.Direction.ASC, "user");
-		
 		Page<Profile> profiles = profileDao.findByInterestsNameStartingWith(interest, request);
 		
 		Page<SearchResultDto> searchResultDtos = profiles.map(SearchResultDto::new);

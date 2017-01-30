@@ -22,7 +22,6 @@
 
 <title><tiles:insertAttribute name="title" /></title>
 
-<!-- adugam Context Root pentru ca linkurile care ex: css sa functioneze si cand dam deploy la un war pe server -->
 <c:set var="contextRootDemo" value="${pageContext.request.contextPath}" />
 
 <!-- Bootstrap -->
@@ -67,14 +66,14 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 			
-			<sec:authorize access="!isAuthenticated()"> <!-- Doar daca userul nu este logat se va vedea "Login" -->
+			<sec:authorize access="!isAuthenticated()">
 				<li><a href="${contextRootDemo}/login">Login</a></li>
 				<li><a href="${contextRootDemo}/register">Register</a></li>
 			</sec:authorize>
 				
-				<sec:authorize access="isAuthenticated()"> <!-- Doar daca userul este autentificat putem vedea ce e mai jos -->
+				<sec:authorize access="isAuthenticated()">
 					<li><a href="${contextRootDemo}/profile">Profile</a></li>
-					<li><a href="javascript:$('#logoutForm').submit();">Logout</a></li> <!-- Logout link cu Jquery-->
+					<li><a href="javascript:$('#logoutForm').submit();">Logout</a></li>
 				</sec:authorize>
 				
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -93,7 +92,7 @@
 	</nav>
 
 	<c:url var="logoutLink" value="/logout"/>
-	<form id="logoutForm" method="post" action="${logoutLink}"> <!-- Pt a ne deloga trebuie sa trimitem un form -->
+	<form id="logoutForm" method="post" action="${logoutLink}">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
 

@@ -5,6 +5,8 @@ import javax.validation.ConstraintValidatorContext;
 
 import com.whatever.model.SiteUser;
 
+/** Custom password match validator*/
+
 public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch, SiteUser>{
 
 	@Override

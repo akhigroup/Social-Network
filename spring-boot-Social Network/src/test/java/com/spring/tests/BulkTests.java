@@ -9,11 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.sound.sampled.Line;
 import javax.transaction.Transactional;
 import javax.validation.constraints.AssertTrue;
 
@@ -62,10 +60,10 @@ public class BulkTests {
 		Stream<String> stream = Files.lines(filePath);
 		
 		List<String> result = stream
-			.filter(line -> !line.isEmpty()) //doar liniile care nu sunt blank
-			.map(line -> line.trim())// scoatem spatiile goale
-			.filter(line -> line.length() <= maxLength)//lungimea maxima a unei linii
-			.map(line -> line.substring(0, 1).toUpperCase() + line.substring(1).toLowerCase())//prima litera Uppercase, restul Lowercase
+			.filter(line -> !line.isEmpty()) 
+			.map(line -> line.trim())
+			.filter(line -> line.length() <= maxLength)
+			.map(line -> line.substring(0, 1).toUpperCase() + line.substring(1).toLowerCase())
 			//.map(line -> line.replaceAll("\\s|\\W", "")) not Ok for Hobbies
 			.collect(Collectors.toList());
 			//.forEach(System.out :: println);
@@ -106,7 +104,7 @@ public class BulkTests {
 			
 			Profile profile = new Profile(user);
 			
-			int nbOfInterest = random.nextInt(7);
+			int nbOfInterest = random.nextInt(6) + 1; /** generate between 1 and 7 interests per user*/
 			Set<Interest> userInterests = new HashSet<>();
 			
 			for (int j = 0; j < nbOfInterest; j++){
@@ -122,7 +120,5 @@ public class BulkTests {
 		}
 		
 		assertTrue(true);
-		
-		 
 	}
 }

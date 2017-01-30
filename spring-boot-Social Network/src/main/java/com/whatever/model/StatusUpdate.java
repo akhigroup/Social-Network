@@ -15,26 +15,25 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity //This entity will be mapped to a Table
+@Entity
 @Table(name="status_update")
 public class StatusUpdate {
 	
 	@Id
-	@Column(name="id") // putem specifica numele coloanei, daca nu se va lua numele variabilei
+	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@Size(min=6, max=255, message="{addstatus.text.size.whatever}") //despartim mesajele de erroare de codul Java si le punem 
-	//intr-un fisier care se numeste neaparat "ValidationMessage.properties"
+	@Size(min=6, max=255, message="{addstatus.text.size.whatever}")
 	@Column(name="text")
 	private String text;
 	
 	@Column(name="date")
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="yyyy/MM/dd hh:mm:ss") //Pentru a putea transforma din String in Date format atunci cand dam "save" la un post editat
+	@DateTimeFormat(pattern="yyyy/MM/dd hh:mm:ss")
 	private Date added;
 	
-	@PrePersist  //Va rula inaintea crearii obiectului, dupa constructor
+	@PrePersist
 	protected void onCreate(){
 		if (added == null)
 			added = new Date();

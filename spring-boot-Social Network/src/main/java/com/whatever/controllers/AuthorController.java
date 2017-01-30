@@ -130,13 +130,11 @@ public class AuthorController {
 			emailService.sendVerificationEmail(user.getEmail(), token);
 			mav.setViewName("redirect:/verifyemail");
 			
-			user.setEnabled(true); //modificam starea initiala la creearea contului in "enable = true"(pt a testa mai usor) si salvam modificarea in user
+			user.setEnabled(true);
 			userService.save(user);
 			
 		}
 		return mav;
 	}
-
-	
 	
 }

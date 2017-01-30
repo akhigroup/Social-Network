@@ -9,13 +9,15 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 
-	// 	Sunt datele de configurare pt a utiliza un serviciu de email (luate de pe www.mailtrap.io) 
-	/*	mail.smtp.host=mailtrap.io
-		mail.smtp.port=2525
-		mail.smtp.user=01e3fb41759602
-		mail.smtp.pass=329bdff689cc1b*/
+	/** 
+	 * Using mailtrap to test our e-mail service: www.mailtrap.io
+	 * mail.smtp.host=mailtrap.io
+	 * mail.smtp.port=2525
+     * mail.smtp.user=*************
+	 * mail.smtp.pass=*************
+	 * */
 	
-	@Value("${mail.smtp.host}") //ce este in interiorul lui @Value se numeste Spring expression language - SPEL, asemanator cu java expression lang din .jsp
+	@Value("${mail.smtp.host}")
 	private String host;
 	
 	@Value("${mail.smtp.port}")
@@ -27,8 +29,8 @@ public class MailConfig {
 	@Value("${mail.smtp.pass}")
 	private String password;
 	
-	@Bean //pentru ca Spring sa creeze un obiect si a putea utiliza @Autowired in clasa unde vrem sa il folosim
-	public JavaMailSender mailSender(){ //este o interfata Java pe care o putem folosii pt ca am adugat in pom.xml un dependecy pt el
+	@Bean 
+	public JavaMailSender mailSender(){
 		
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		

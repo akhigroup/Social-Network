@@ -19,6 +19,8 @@ import com.whatever.exceptions.ImageTooSmallException;
 import com.whatever.exceptions.InvalidFileException;
 import com.whatever.model.FileInfo;
 
+/** A Image Service class*/
+
 @Service
 public class FileService {
 	
@@ -77,21 +79,18 @@ public class FileService {
 		
 		BufferedImage resizedImage = resizeImage(file, width, height);
 		
-		ImageIO.write(resizedImage, extension, filepath.toFile());//Folosim filepath.toFile() pt ca acest parametru trebuie sa fie de tip "File" si nu "Path" cum avem noi
-		
-		//Files.copy(file.getInputStream(), filepath); //asa putem scrie un fisier luat direct de la inputStream 
+		ImageIO.write(resizedImage, extension, filepath.toFile());
 		
 		return new FileInfo(filename, extension, subDirectory.getName(), baseDirectory);		
 	}
 	
-	//redimensionam imaginea de profil - o miscoram, pt ca toate sa fie la fel
+	/** Resize image to a standard dimension*/
 	private BufferedImage resizeImage(MultipartFile inputFile, int width, int height) throws IOException, ImageTooSmallException {
 		
-		BufferedImage image = ImageIO.read(inputFile.getInputStream());//citim imaginea
+		BufferedImage image = ImageIO.read(inputFile.getInputStream());
 		
 		if (image.getWidth() < width && image.getHeight() < height)
 			return image;
-			//throw new ImageTooSmallException();
 		
 		double scale = Math.min((double)width / image.getWidth(), (double)height / image.getHeight());
 		

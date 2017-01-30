@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!-- data format tags  -->
 
-<c:url var="urlDemo" value="/viewstatus"/> <!-- copiem in variabila urlDemo "context-root" al aplicatiei de unde ruleaza -->
+<c:url var="urlDemo" value="/viewstatus"/>
 
-<c:if test="${page.totalPages > 1}"> <!-- Afisam numerotarea paginilor doar daca sunt mai mult de 2 -->
+<c:if test="${page.totalPages > 1}">
 
 <div class="pagination">
 
-	<c:forEach var="pageNumberDemo" begin="1" end="${page.totalPages}"><!-- Din clasa Page apelam metoda getTotalPages() -->
+	<c:forEach var="pageNumberDemo" begin="1" end="${page.totalPages}">
 		<c:choose>
 			<c:when test="${pageNumberDemo - 1 != page.number}">
 				<a href="${urlDemo}?p=${pageNumberDemo}">
@@ -31,7 +31,7 @@
 
 <c:forEach var="varDemo" items="${page.content}">
 
-	<c:url var="editlink" value="/editstatus?id=${varDemo.id}"/> <!-- statusUpdate.id apeleaza getId() dn clasa StatusUpdate -->
+	<c:url var="editlink" value="/editstatus?id=${varDemo.id}"/>
 	<c:url var="deletelink" value="/deletestatus?id=${varDemo.id}"/>
 	
 	<div class="panel panel-default">
@@ -45,11 +45,8 @@
 		</div>
 		<div class="panel-body">
 
-			<%-- <c:out value="${varDemo.text}" />  Pentru a nu mai vedea de ex: <bold> text </bold> afisam exact ce vedem--%>
-			
-			
 			<div>${varDemo.text}</div>
-			<div class="edit-links pull-right"> <!-- Punem linkurile pentru edit si delete -->
+			<div class="edit-links pull-right">
 				<a href="${editlink}">edit</a> | <a href="${deletelink}" onclick="return confirm('Want to delete this status?')">delete</a> <!-- "editlink si "deletekink" contin url+id-->
 			</div>
 

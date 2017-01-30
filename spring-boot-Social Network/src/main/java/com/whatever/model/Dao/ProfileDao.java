@@ -17,5 +17,6 @@ public interface ProfileDao extends JpaRepository<Profile, Long>{
 	List<Profile> findByInterestsNameLike(String interest);
 	/** Nice One!*/
 	Page<Profile> findByInterestsNameStartingWith(String interest, Pageable pageable);
+	Page<Profile> findAll(Pageable pageable);
 	
 }

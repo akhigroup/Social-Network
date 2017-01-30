@@ -29,7 +29,7 @@ public class VerificationToken {
 	@Column(name="token")
 	private String token;
 	
-	@OneToOne(targetEntity=SiteUser.class) //Care este Foreing KEY
+	@OneToOne(targetEntity=SiteUser.class)
 	@JoinColumn(name="user_id", nullable=false)
 	private SiteUser user;
 	

@@ -1,5 +1,4 @@
 <html>
-
 <body>
 
 <p>Thank you for registering to the Spring tutorial Site</p>
@@ -7,5 +6,4 @@
 <p>Please click <a href="${url}/confirmregister?t=${token}">here</a> to verify your email address.</p>
 
 </body>
-
 </html>

@@ -10,10 +10,8 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 				
-		<%-- <form:errors path="email"/>
-		<form:errors path="password"/> --%>
 		<div class="login-error">
-			<form:errors path="userDemo.*"/> <!-- Pt. a afisa erroarea -->
+			<form:errors path="userDemo.*"/>
 		</div>
 
 		<div class="panel panel-default">
@@ -23,7 +21,7 @@
 			</div>
 
 			<div class="panel-body">
-				<form:form method="post" modelAttribute="userDemo" class="login-form"> <!-- Folosim Spring form tags -->
+				<form:form method="post" modelAttribute="userDemo" class="login-form">
 
 					<div class="input-group">
 						<form:input type="text" path="firstname" placeholder="First Name" 
@@ -35,13 +33,12 @@
 
 					<div class="input-group">
 						<form:input type="text" path="email" placeholder="Email" 
-							class="form-control" /><%-- path-ul tine numele variabilei "email" din clasa SiteUser --%>
+							class="form-control" />
 					</div>
 
 					<div class="input-group">
 						<form:input type="password" path="plainPassword" placeholder="Password" 
-							class="form-control" /><%-- path-ul tine numele varibilei "password" din clasa SiteUser --%>
-							<%-- Punem parola in "plainPassword" si o validam inainte de a o encoda--%>
+							class="form-control" />
 					</div>
 
 					<div class="input-group">

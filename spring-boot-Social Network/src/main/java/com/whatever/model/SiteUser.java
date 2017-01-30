@@ -18,7 +18,7 @@ import com.whatever.validation.PasswordMatch;
 
 @Entity
 @Table(name="user")
-@PasswordMatch(message="{register.repeatpassword.mismatch}") //adnotatia pe care am creat-o noi
+@PasswordMatch(message="{register.repeatpassword.mismatch}")/** Custom annotation*/
 public class SiteUser {
 	
 	@Id
@@ -59,7 +59,7 @@ public class SiteUser {
 	public SiteUser(){
 		
 	}
-	//For testing purpose
+	/** For testing purpose */
 	public SiteUser(String firstname, String surname, String email, String password){
 		this.firstname = firstname;
 		this.surname = surname;

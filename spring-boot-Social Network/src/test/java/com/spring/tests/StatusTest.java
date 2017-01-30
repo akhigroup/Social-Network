@@ -36,7 +36,7 @@ import com.whatever.service.StatusUpdateService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(App.class)
 @WebAppConfiguration
-@Transactional //Nu salveaza efectiv la finalizarea testului in baza de date
+@Transactional
 public class StatusTest {
 
 	@Autowired
@@ -61,9 +61,9 @@ public class StatusTest {
 	public void testSave() {
 		StatusUpdate status = new StatusUpdate("This is a test status update");
 		
-		statusUpdateDao.save(status); //Salveaza in baza de date
+		statusUpdateDao.save(status);
 		
-		assertNotNull("Non null ID", status.getId()); //Verifica daca Id este inserat
+		assertNotNull("Non null ID", status.getId());
 		assertNotNull("Non null Date", status.getAdded());
 		
 		StatusUpdate retrieved = statusUpdateDao.findOne(status.getId());
@@ -94,7 +94,7 @@ public class StatusTest {
 	
 	//@Ignore
 	@Test
-	@WithMockUser(roles = "ADMIN") //We mock a user with role admin
+	@WithMockUser(roles = "ADMIN") /** We mock a user with role admin */
 	public void testAddNewStatus() throws Exception {
 		
 		for (int i = 0; i < 300; i++){

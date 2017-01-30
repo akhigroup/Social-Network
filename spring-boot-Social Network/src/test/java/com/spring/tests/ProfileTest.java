@@ -74,7 +74,7 @@ public class ProfileTest {
 			
 			Profile profile = new Profile(user);
 			profile.setInterests(interestSet);
-			profileService.save(profile); //Trebuie comentat in clasa ProfileService @PreAuthorize("isAuthenticated()"), altfel nu se vor executa cele 2 metode
+			profileService.save(profile);
 			
 			Profile retrievedProfile = profileService.getUserProfile(user);
 			assertEquals("Interests should match", retrievedProfile.getInterests(), interestSet);

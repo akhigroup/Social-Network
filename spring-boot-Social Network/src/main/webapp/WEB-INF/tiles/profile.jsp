@@ -23,7 +23,7 @@
 		<div id="interestDiv">
 			<ul id="interestList">
 				<c:choose>
-					<c:when test="${empty profile.interests}"> <!-- apelam metoda getInterest din clasa Profile -->
+					<c:when test="${empty profile.interests}">
 						<li>Add your interests here (ex: karate)</li>
 					</c:when>
 					<c:otherwise>
@@ -70,7 +70,7 @@
 
 		</div>
 		<div class="profile-about-edit">
-			<c:if test="${ownProfile == true}"> <!-- doar daca ne uitam la profilul nostru avem linkul de edit -->
+			<c:if test="${ownProfile == true}">
 				<a href="${editProfileAbout}">edit</a>
 			</c:if>
 		</div>
@@ -80,8 +80,6 @@
 		
 			<input type="file" accept="image/*" name="file" id="photoFileInput"/>
 			<input type="submit" value="upload" style="margin-top:20px"/>
-			
-			<!-- Asta il punem ca altfel nu merge -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							
 		</form>
@@ -97,7 +95,7 @@ function setUploadStatusText(text){
 }
 
 function uploadSuccess(data){
-	$("#profilePhotoImage").attr("src", "${profilePhoto};t=" + new Date()); //si in cazul in care noua imagine selectata are alasi nume ca cea veche, obligam browserul sa faca refresh pt ca Date() va fi diferit
+	$("#profilePhotoImage").attr("src", "${profilePhoto};t=" + new Date());
 	
 	$("#photoFileInput").val("");
 
@@ -170,13 +168,13 @@ function uploadPhoto(event){
 			caseSensitive : false,
 			allowSpaces : true,
 			tagLimit : 10,
-			readOnly: '${ownProfile}' == 'false' //putem edita doar daca este profilul nostru
+			readOnly: '${ownProfile}' == 'false' //we edit only if is our own profile
 
 		});
 
 	$("#upload_link").click(function(event){
 		event.preventDefault();
-		$("#photoFileInput").trigger('click'); //simulam un click in id=""photoFileInput""
+		$("#photoFileInput").trigger('click');
 	});
 	 
 	$("#photoFileInput").change(function() {
